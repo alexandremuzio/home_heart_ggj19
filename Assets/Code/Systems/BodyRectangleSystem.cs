@@ -11,7 +11,6 @@ public class BodyRectangleSystem : ComponentSystem
 {
     struct DecreaseOxygenComponents
     {
-        public Position position;
         public BodyRectangleComponent bodyRect;
     }
 
@@ -27,8 +26,9 @@ public class BodyRectangleSystem : ComponentSystem
             e.bodyRect.OxygenLevel -= Time.deltaTime * e.bodyRect.OxygenDecreaseSpeed;
         }
 
+        Gradient gradient = SystemParameters.BodyRectangleSystem.OxigenationGradient;
         foreach (var e in GetEntities<ChangeColorOxygenComponents>()) {
-            e.renderer.col
+            e.renderer.color = gradient.Evaluate(Time.time);
         }
     }
 }    
