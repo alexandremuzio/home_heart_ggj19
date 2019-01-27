@@ -14,11 +14,12 @@ public enum BodySplitType
 public class BodyRectangle : MonoBehaviour
 {
   private new SpriteRenderer renderer;
+  public SpriteRenderer black;
 
   public Vector2 position => gameObject.transform.position;
   public float HorizontalSize => renderer.size.x;
   public float VerticalSize => renderer.size.y;
-  internal bool doesntSplit;
+  public bool doesntSplit;
 
   // public OxigenationMeter oxigenationHandler;
 
@@ -39,5 +40,6 @@ public class BodyRectangle : MonoBehaviour
   {
     var oxigenationHandler = GetComponent<OxigenationMeter>();
     renderer.color = oxigenationHandler.GetColor();
+    black.gameObject.SetActive(!oxigenationHandler.isAlive);
   }
 }

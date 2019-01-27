@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8ef95df2bf8d14abbbdef5c15d02c7, type: 3}
   m_Name: BloodCell
   m_EditorClassIdentifier: 
-  Speed: 1
-  RecordPositionInterval: 0.1
+  Speed: 2
+  RecordPositionInterval: 0.05
   MaxOxigen: 100
+  OxigenDonationRate: 10

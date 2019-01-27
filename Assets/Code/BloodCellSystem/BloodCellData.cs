@@ -12,4 +12,5 @@ public class BloodCellData : ScriptableObject
 
   [Header("Oxigenation")]
   public float MaxOxigen;
+  public float OxigenDonationRate;
 }
