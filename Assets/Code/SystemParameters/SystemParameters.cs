@@ -12,17 +12,15 @@ public class SystemParameters : MonoBehaviour
   [SerializeField]
   private BodyRectangleSystemParameters _bodyRectangleSystemParameters;
   private static SystemParameters _instance;
-  private static SystemParameters Instance
+  public static SystemParameters Instance
   {
     get
     {
-      var instance = FindObjectOfType<SystemParameters>();
-      if (instance != Instance)
+      if (_instance == null)
       {
-        Destroy(instance);
-        return _instance;
+          _instance = FindObjectOfType<SystemParameters>();
       }
-      _instance = instance;
+
       return _instance;
     }
   }
