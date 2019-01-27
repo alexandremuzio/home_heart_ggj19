@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splitCooldownBase: 3
   splittingMultiplier: 2
+  rectangleFadeoutTime: 2.28
   bodyRectPrefab: {fileID: 9154284842270840785, guid: 7f0f6307ee53937408ee48331f981707,
     type: 3}
   rectangles: []

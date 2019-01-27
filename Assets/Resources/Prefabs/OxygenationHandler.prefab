@@ -75,4 +75,4 @@ MonoBehaviour:
   oxygenLevel: 50
   maxOxygenLevel: 50
   oxygenDecreaseSpeed: 1
-  isAlive: 1
+  IsAlive: 1

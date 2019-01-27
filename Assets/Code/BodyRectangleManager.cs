@@ -33,6 +33,8 @@ public class BodyRectangleManager : MonoBehaviour
     }
 
     splitCooldown = splitCooldownBase;
+
+    GameEvents.RectangleGotGangrenous += OnRectangleDied;
   }
 
   private void Update()
@@ -99,6 +101,7 @@ public class BodyRectangleManager : MonoBehaviour
         float proportionRatio = Mathf.Abs(pos.x - (r.position.x - r.HorizontalSize / 2)) / r.HorizontalSize;
         var newO2 = Ob1.GetComponent<OxigenationMeter>();
         newO2.SetOxygenData(splittingMultiplier * proportionRatio * O2lvl, splittingMultiplier * proportionRatio * O2MaxLvl);
+        StartCoroutine(FadeIn(Ob1));
         rectangles.Add(Ob1);
 
         newPos = new Vector2((r.position.x + r.HorizontalSize / 2 + pos.x) / 2, r.position.y);
@@ -109,6 +112,7 @@ public class BodyRectangleManager : MonoBehaviour
         proportionRatio = 1 - proportionRatio;
         newO2 = Ob1.GetComponent<OxigenationMeter>();
         newO2.SetOxygenData(splittingMultiplier * proportionRatio * O2lvl, splittingMultiplier * proportionRatio * O2MaxLvl);
+        StartCoroutine(FadeIn(Ob1));
         rectangles.Add(Ob1);
         break;
       case BodySplitType.Horizontal:
@@ -120,6 +124,7 @@ public class BodyRectangleManager : MonoBehaviour
         float proportionRatioV = Mathf.Abs(pos.y - (r.position.y - r.VerticalSize / 2)) / r.VerticalSize;
         var newO2V = Ob1V.GetComponent<OxigenationMeter>();
         newO2V.SetOxygenData(splittingMultiplier * proportionRatioV * O2lvl, splittingMultiplier * proportionRatioV * O2MaxLvl);
+        StartCoroutine(FadeIn(Ob1V));
         rectangles.Add(Ob1V);
 
         newPosV = new Vector2(r.position.x, (r.position.y + r.VerticalSize / 2 + pos.y) / 2);
@@ -130,6 +135,7 @@ public class BodyRectangleManager : MonoBehaviour
         proportionRatioV = 1 - proportionRatioV;
         newO2V = Ob1V.GetComponent<OxigenationMeter>();
         newO2V.SetOxygenData(splittingMultiplier * proportionRatioV * O2lvl, splittingMultiplier * proportionRatioV * O2MaxLvl);
+        StartCoroutine(FadeIn(Ob1V));
         rectangles.Add(Ob1V);
         break;
       case BodySplitType.Cross:
@@ -161,20 +167,41 @@ public class BodyRectangleManager : MonoBehaviour
 
     // delete rectangle
     rectangles.Remove(r);
-    FadeOut(r);
+    StartCoroutine(FadeOut(r));
+  }
+
+  void OnRectangleDied(BodyRectangle r)
+  {
+      print ("Deleting from rectangle list");
+      rectangles.Remove(r);
   }
 
   private IEnumerator FadeOut(BodyRectangle r)
   {
-    SpriteRenderer renderer = r.GetComponent<SpriteRenderer>();
-    var newColor = renderer.color;
-    newColor.a = 0;
+    var renderer = r.GetComponent<SpriteRenderer>();
     for (float t = 0; t < this.rectangleFadeoutTime; t += Time.deltaTime)
     {
-        renderer.color = Color.Lerp(renderer.color, newColor, t / 2f);
+        var newColorT = renderer.color;
+        var alpha = Mathf.Lerp(1, 0, t / this.rectangleFadeoutTime);
+        newColorT.a = alpha;
+        renderer.color = newColorT;
         yield return null;
     }
 
     Destroy(r.gameObject);
+  }
+
+
+  private IEnumerator FadeIn(BodyRectangle r)
+  {
+    var renderer = r.GetComponent<SpriteRenderer>();
+    for (float t = 0; t < this.rectangleFadeoutTime; t += Time.deltaTime)
+    {
+        var newColorT = renderer.color;
+        var alpha = Mathf.Lerp(0, 1, t / this.rectangleFadeoutTime);
+        newColorT.a = alpha;
+        renderer.color = newColorT;
+        yield return null;
+    }
   }
 }
