@@ -15,7 +15,7 @@ public class BodyRectangle : MonoBehaviour
   public float oxgyenLevel;
   public float oxygenReduceSpeed;
   public bool isAlive;
-
+  internal bool doesntSplit;
   private new SpriteRenderer renderer;
 
   public Vector2 position => gameObject.transform.position;

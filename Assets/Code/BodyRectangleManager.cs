@@ -19,6 +19,7 @@ public class BodyRectangleManager : MonoBehaviour
     // Create initial rectangles for body
     foreach (var rectangle in FindObjectsOfType<BodyRectangle>())
     {
+      if (rectangle.doesntSplit) continue;
       rectangles.Add(rectangle);
     }
   }

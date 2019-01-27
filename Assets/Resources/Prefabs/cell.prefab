@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1107087360}
   - component: {fileID: 1107087362}
   - component: {fileID: 1107087361}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4712,13 +4712,13 @@ GameObject:
   - component: {fileID: 7659673651260329559}
   - component: {fileID: 7659673651260329563}
   - component: {fileID: 486623002}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7659673651260329562
 Transform:
   m_ObjectHideFlags: 0
@@ -4770,7 +4770,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3e2331a2fe316a448b3e4b9407beea5d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
