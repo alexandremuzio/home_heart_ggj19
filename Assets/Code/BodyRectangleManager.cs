@@ -49,6 +49,7 @@ public class BodyRectangleManager : MonoBehaviour
       SplitRandomRectangle();
     }
   }
+  public float pixelPerUnit = 32;
 
   private void SplitRandomRectangle()
   {
@@ -58,13 +59,16 @@ public class BodyRectangleManager : MonoBehaviour
                 .First();
 
     // choose random point inside rectangle
-    float randXMax = r.HorizontalSize / 2f + r.position.x;
-    float randXMin = -r.HorizontalSize / 2f + r.position.x;
-    float randYMax = r.VerticalSize / 2f + r.position.y;
-    float randYMin = -r.VerticalSize / 2f + r.position.y;
+    float randXMax = r.HorizontalSize / 2f + r.position.x - 1;
+    float randXMin = -r.HorizontalSize / 2f + r.position.x + 1;
+    float randYMax = r.VerticalSize / 2f + r.position.y - 1;
+    float randYMin = -r.VerticalSize / 2f + r.position.y + 1;
 
-    float x = Random.Range(randXMin + r.HorizontalSize / 7, randXMax - r.HorizontalSize / 7);
-    float y = Random.Range(randYMin + r.VerticalSize / 7, randYMax - r.VerticalSize / 7);
+
+    float x = Random.Range(randXMin, randXMax);
+    x = Mathf.Round(x * pixelPerUnit) / pixelPerUnit;
+    float y = Random.Range(randYMin, randYMax);
+    y = Mathf.Round(y * pixelPerUnit) / pixelPerUnit;
 
     Array values = Enum.GetValues(typeof(BodySplitType));
     System.Random random = new System.Random();
@@ -73,17 +77,31 @@ public class BodyRectangleManager : MonoBehaviour
     float aspectRatio = r.HorizontalSize / r.VerticalSize;
 
     if (aspectRatio <= 1)
-        SplitRectangle(r, new Vector2(x, y), BodySplitType.Horizontal);
+    {
+      if (randYMax < randYMin)
+      {
+        print("not possible h");
+        //return;
+      }
+      SplitRectangle(r, new Vector2(x, y), BodySplitType.Horizontal);
+    }
     else
-        SplitRectangle(r, new Vector2(x, y), BodySplitType.Vertical);
+    {
+      if (randXMax < randXMin)
+      {
+        print("not possible v");
+        //return;
+      }
+      SplitRectangle(r, new Vector2(x, y), BodySplitType.Vertical);
+    }
   }
 
   public void SplitRectangle(BodyRectangle r, Vector2 pos, BodySplitType splitType)
   {
-      // O2 Info for split rectangle
-      var O2 = r.GetComponent<OxigenationMeter>();
-      var O2lvl = O2.oxygenLevel;
-      var O2MaxLvl = O2.maxOxygenLevel;
+    // O2 Info for split rectangle
+    var O2 = r.GetComponent<OxigenationMeter>();
+    var O2lvl = O2.oxygenLevel;
+    var O2MaxLvl = O2.maxOxygenLevel;
 
     switch (splitType)
     {
