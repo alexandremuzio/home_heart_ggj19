@@ -18,9 +18,9 @@ public class BloodCellMovement : MonoBehaviour
   private BloodCellRecorder recorder;
   public CellMoveMode mode { get; private set; }
 
-
   private IEnumerator ReplayRecording()
   {
+
     while (true)
     {
       foreach (var target in recorder.GetNextPosition())
@@ -41,6 +41,7 @@ public class BloodCellMovement : MonoBehaviour
   void Start()
   {
     recorder = GetComponent<BloodCellRecorder>();
+    StartCoroutine(ModeAnimation());
   }
 
   public void OnCellBack()
@@ -58,6 +59,23 @@ public class BloodCellMovement : MonoBehaviour
       var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
       transform.position += (Vector3)input * Time.deltaTime * data.Speed
       ;
+    }
+  }
+
+  IEnumerator ModeAnimation()
+  {
+    while (true)
+    {
+      while (mode == CellMoveMode.Play)
+        yield return null;
+
+      print("stopping animation");
+      GetComponent<Animator>().SetTrigger("toggle");
+
+      while (mode == CellMoveMode.Replay)
+        yield return null;
+
+      GetComponent<Animator>().SetTrigger("toggle");
     }
   }
 
