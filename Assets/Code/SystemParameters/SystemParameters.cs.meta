@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Code/SystemParameters/SystemParameters.cs.meta
+guid: 793f579b50f8b5f43a0a30dabb5d7f94
+=======
 guid: 0656f24f88ed54f4c8d90f6cbd00d047
+>>>>>>> f9d7c15452c9e9bebc60da398c452b92d6e2d1fc:Assets/Code/SystemParameters/SystemParameters.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
