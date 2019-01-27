@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 969798804}
   - component: {fileID: 969798803}
   m_Layer: 0
-  m_Name: BodyRectangle
+  m_Name: BodyRectangleManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cea5b5a7d2d8d47ae4b41bd0df8357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  probabilityToSplitRectangle: 0
+  splitCooldownBase: 3
+  splittingMultiplier: 2
   bodyRectPrefab: {fileID: 9154284842270840785, guid: 7f0f6307ee53937408ee48331f981707,
     type: 3}
   rectangles: []

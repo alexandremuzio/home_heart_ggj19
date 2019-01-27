@@ -28,7 +28,7 @@ public class BloodCellOxigenation : MonoBehaviour
     if (rect)
     {
       var rectMeter = rect.GetComponent<OxigenationMeter>();
-      if (!rectMeter.isAlive) return;
+      if (!rectMeter.IsAlive) return;
       var fillAmmount = data.OxigenDonationRate * Time.deltaTime;
 
       Func<float, float> take = oxigenationMeter.Take;
