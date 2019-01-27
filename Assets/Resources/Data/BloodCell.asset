@@ -15,4 +15,4 @@ MonoBehaviour:
   Speed: 2
   RecordPositionInterval: 0.05
   MaxOxigen: 100
-  OxigenDonationRate: 10
+  OxigenDonationRate: 15
