@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BloodCellOxigenation : MonoBehaviour
 {
-  public CellData data;
+  public BloodCellData data;
 }

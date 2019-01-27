@@ -10,17 +10,16 @@ public enum BodySplitType
 };
 
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(OxigenationMeter))]
 public class BodyRectangle : MonoBehaviour 
 {
-    public float oxgyenLevel;
-    public float oxygenReduceSpeed;
-    public bool isAlive;
-
     private new SpriteRenderer renderer;
 
     public Vector2 position => gameObject.transform.position;
     public float HorizontalSize => renderer.size.x;
     public float VerticalSize => renderer.size.y;
+
+    public OxigenationMeter oxigenationHandler;
 
     public void Initialize(float horizontalSize, float verticalSize) {
         // sets rect size
@@ -36,11 +35,6 @@ public class BodyRectangle : MonoBehaviour
 
     private void Update()
     {
-        this.oxgyenLevel -= Time.deltaTime * oxygenReduceSpeed;
-
-        if (this.oxgyenLevel < 0f) {
-            isAlive = false;
-            print("Body Rectangle is dead!");
-        }
+        renderer.color = oxigenationHandler.GetColor();
     }
 }
