@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SystemParameters : MonoBehaviour
 {
-  private static SystemParameters Instance;
   public static CellSystemParameters CellSystem => Instance._cellSystemParameters;
   [SerializeField]
   private CellSystemParameters _cellSystemParameters;
@@ -12,14 +11,17 @@ public class SystemParameters : MonoBehaviour
   public static BodyRectangleSystemParameters BodyRectangleSystem => Instance._bodyRectangleSystemParameters;
   [SerializeField]
   private BodyRectangleSystemParameters _bodyRectangleSystemParameters;
-  void Awake()
+  private static SystemParameters _instance;
+  public static SystemParameters Instance
   {
-    var instance = FindObjectOfType<SystemParameters>();
-    if (instance != Instance)
+    get
     {
-      Destroy(instance);
-      return;
+      if (_instance == null)
+      {
+          _instance = FindObjectOfType<SystemParameters>();
+      }
+
+      return _instance;
     }
-    Instance = instance;
   }
 }
