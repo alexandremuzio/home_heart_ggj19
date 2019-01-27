@@ -11,7 +11,7 @@ public enum BodySplitType
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(OxigenationMeter))]
-public class BodyRectangle : MonoBehaviour 
+public class BodyRectangle : MonoBehaviour
 {
     private new SpriteRenderer renderer;
 
@@ -19,9 +19,10 @@ public class BodyRectangle : MonoBehaviour
     public float HorizontalSize => renderer.size.x;
     public float VerticalSize => renderer.size.y;
 
-    public OxigenationMeter oxigenationHandler;
+    // public OxigenationMeter oxigenationHandler;
 
-    public void Initialize(float horizontalSize, float verticalSize) {
+    public void Initialize(float horizontalSize, float verticalSize)
+    {
         // sets rect size
         Vector2 size = new Vector2(horizontalSize, verticalSize);
 
@@ -35,6 +36,7 @@ public class BodyRectangle : MonoBehaviour
 
     private void Update()
     {
+        var oxigenationHandler = GetComponent<OxigenationMeter>();
         renderer.color = oxigenationHandler.GetColor();
     }
 }
