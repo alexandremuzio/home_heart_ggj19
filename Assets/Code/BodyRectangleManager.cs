@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
+using System.Collections;
 
 public class BodyRectangleManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class BodyRectangleManager : MonoBehaviour
   public float splitCooldownBase;
 
   public float splittingMultiplier;
+
+  public float rectangleFadeoutTime;
 
   public BodyRectangle bodyRectPrefab;
 
@@ -158,6 +161,20 @@ public class BodyRectangleManager : MonoBehaviour
 
     // delete rectangle
     rectangles.Remove(r);
+    FadeOut(r);
+  }
+
+  private IEnumerator FadeOut(BodyRectangle r)
+  {
+    SpriteRenderer renderer = r.GetComponent<SpriteRenderer>();
+    var newColor = renderer.color;
+    newColor.a = 0;
+    for (float t = 0; t < this.rectangleFadeoutTime; t += Time.deltaTime)
+    {
+        renderer.color = Color.Lerp(renderer.color, newColor, t / 2f);
+        yield return null;
+    }
+
     Destroy(r.gameObject);
   }
 }
