@@ -11,7 +11,7 @@ public class OxigenationMeter : MonoBehaviour
 
   public float oxygenDecreaseSpeed;
 
-  public bool IsAlive { get; private set; }
+  public bool IsAlive { get; private set; }= true;
 
   public void SetOxygenData(float O2Level, float maxO2Level, float O2DecreaseSpeed = -1f)
   {
@@ -23,7 +23,6 @@ public class OxigenationMeter : MonoBehaviour
       oxygenDecreaseSpeed = O2DecreaseSpeed;
     }
   }
-
 
   public Color GetColor()
   {
