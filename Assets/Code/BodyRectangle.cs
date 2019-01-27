@@ -27,6 +27,8 @@ public class BodyRectangle : MonoBehaviour
         Vector2 size = new Vector2(horizontalSize, verticalSize);
 
         renderer.size = size;
+
+        var oxygenationHandler = GetComponent<OxigenationMeter>();
     }
 
     private void Awake()

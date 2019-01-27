@@ -14,7 +14,18 @@ public class OxigenationMeter : MonoBehaviour
     public bool isAlive;
 
     public bool IsAlive() => isAlive;
-    
+
+    public void SetOxygenData(float O2Level, float maxO2Level, float O2DecreaseSpeed = -1f)
+    {
+        oxygenLevel = O2Level;
+        maxOxygenLevel = maxO2Level;
+
+        if (O2DecreaseSpeed != -1f)
+        {
+            oxygenDecreaseSpeed = O2DecreaseSpeed;
+        }
+    }
+
     public Color GetColor()
     {
         return this.gradient.Evaluate(oxygenLevel / maxOxygenLevel);
@@ -31,7 +42,7 @@ public class OxigenationMeter : MonoBehaviour
 
         if (this.oxygenLevel < 0f) {
             this.isAlive = false;
-            print("Body Rectangle is dead!");
+            // print("Body Rectangle is dead!");
         }
     }
 }

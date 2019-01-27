@@ -8,7 +8,13 @@ using Random = UnityEngine.Random;
 public class BodyRectangleManager : MonoBehaviour
 {
 
-  public float probabilityToSplitRectangle;
+  private float timeSinceLastSplit;
+
+  private float splitCooldown;
+
+  public float splitCooldownBase;
+
+  public float splittingMultiplier;
 
   public BodyRectangle bodyRectPrefab;
 
@@ -21,16 +27,20 @@ public class BodyRectangleManager : MonoBehaviour
     {
       rectangles.Add(rectangle);
     }
+
+    splitCooldown = splitCooldownBase;
   }
 
   private void Update()
   {
-    float rdm = Random.Range(0f, 1f);
+    timeSinceLastSplit += Time.deltaTime;
 
-    if (rdm > probabilityToSplitRectangle)
+    if (timeSinceLastSplit > splitCooldown)
     {
       // Split event
-      // SplitRandomRectangle();
+      SplitRandomRectangle();
+      splitCooldown = splitCooldownBase + Random.RandomRange(-1f, 1f);
+      timeSinceLastSplit = 0f;
     }
 
     if (Input.GetKeyDown(KeyCode.Space))
@@ -57,12 +67,23 @@ public class BodyRectangleManager : MonoBehaviour
 
     Array values = Enum.GetValues(typeof(BodySplitType));
     System.Random random = new System.Random();
-    BodySplitType randomSplit = (BodySplitType)values.GetValue(random.Next(values.Length));
-    SplitRectangle(r, new Vector2(x, y), randomSplit);
+    BodySplitType randomSplit = (BodySplitType)values.GetValue(random.Next(values.Length - 1));
+
+    float aspectRatio = r.HorizontalSize / r.VerticalSize;
+
+    if (aspectRatio <= 1)
+        SplitRectangle(r, new Vector2(x, y), BodySplitType.Horizontal);
+    else
+        SplitRectangle(r, new Vector2(x, y), BodySplitType.Vertical);
   }
 
   public void SplitRectangle(BodyRectangle r, Vector2 pos, BodySplitType splitType)
   {
+      // O2 Info for split rectangle
+      var O2 = r.GetComponent<OxigenationMeter>();
+      var O2lvl = O2.oxygenLevel;
+      var O2MaxLvl = O2.maxOxygenLevel;
+
     switch (splitType)
     {
       case BodySplitType.Vertical:
@@ -70,12 +91,20 @@ public class BodyRectangleManager : MonoBehaviour
         BodyRectangle Ob1 = Instantiate(this.bodyRectPrefab, newPos, Quaternion.identity, r.transform.parent);
         Ob1.Initialize(Mathf.Abs(pos.x - (r.position.x - r.HorizontalSize / 2)), r.VerticalSize);
         Ob1.transform.position = newPos;
+
+        float proportionRatio = Mathf.Abs(pos.x - (r.position.x - r.HorizontalSize / 2)) / r.HorizontalSize;
+        var newO2 = Ob1.GetComponent<OxigenationMeter>();
+        newO2.SetOxygenData(splittingMultiplier * proportionRatio * O2lvl, splittingMultiplier * proportionRatio * O2MaxLvl);
         rectangles.Add(Ob1);
 
         newPos = new Vector2((r.position.x + r.HorizontalSize / 2 + pos.x) / 2, r.position.y);
         Ob1 = Instantiate(this.bodyRectPrefab, newPos, Quaternion.identity, r.transform.parent);
         Ob1.Initialize(Mathf.Abs(pos.x - (r.position.x + r.HorizontalSize / 2)), r.VerticalSize);
         Ob1.transform.position = newPos;
+
+        proportionRatio = 1 - proportionRatio;
+        newO2 = Ob1.GetComponent<OxigenationMeter>();
+        newO2.SetOxygenData(splittingMultiplier * proportionRatio * O2lvl, splittingMultiplier * proportionRatio * O2MaxLvl);
         rectangles.Add(Ob1);
         break;
       case BodySplitType.Horizontal:
@@ -83,12 +112,20 @@ public class BodyRectangleManager : MonoBehaviour
         BodyRectangle Ob1V = Instantiate(this.bodyRectPrefab, newPosV, Quaternion.identity, r.transform.parent);
         Ob1V.Initialize(r.HorizontalSize, Mathf.Abs(pos.y - (r.position.y - r.VerticalSize / 2)));
         Ob1V.transform.position = newPosV;
+
+        float proportionRatioV = Mathf.Abs(pos.y - (r.position.y - r.VerticalSize / 2)) / r.VerticalSize;
+        var newO2V = Ob1V.GetComponent<OxigenationMeter>();
+        newO2V.SetOxygenData(splittingMultiplier * proportionRatioV * O2lvl, splittingMultiplier * proportionRatioV * O2MaxLvl);
         rectangles.Add(Ob1V);
 
         newPosV = new Vector2(r.position.x, (r.position.y + r.VerticalSize / 2 + pos.y) / 2);
         Ob1V = Instantiate(this.bodyRectPrefab, newPosV, Quaternion.identity, r.transform.parent);
         Ob1V.Initialize(r.HorizontalSize, Mathf.Abs(pos.y - (r.position.y + r.VerticalSize / 2)));
         Ob1V.transform.position = newPosV;
+
+        proportionRatioV = 1 - proportionRatioV;
+        newO2V = Ob1V.GetComponent<OxigenationMeter>();
+        newO2V.SetOxygenData(splittingMultiplier * proportionRatioV * O2lvl, splittingMultiplier * proportionRatioV * O2MaxLvl);
         rectangles.Add(Ob1V);
         break;
       case BodySplitType.Cross:
