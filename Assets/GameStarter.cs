@@ -15,7 +15,7 @@ public class GameStarter : MonoBehaviour
 
   public void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Escape))
+    if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.JoystickButton1))
     {
       Scene scene = SceneManager.GetActiveScene();
       SceneManager.LoadScene(scene.name);

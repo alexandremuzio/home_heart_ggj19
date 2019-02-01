@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: yop
+    uniqueID: 1643137317
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
