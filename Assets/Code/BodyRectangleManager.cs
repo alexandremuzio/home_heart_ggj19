@@ -15,9 +15,12 @@ public class BodyRectangleManager : MonoBehaviour
 
   public float splitCooldownBase;
 
-  public float splittingMultiplier;
-
   public float rectangleFadeoutTime;
+
+  public FloatValue InitialOxygenPerArea;
+  public FloatValue OxygenPerArea;
+
+  public FloatValue OxygenPerAreaIncrementerSplit;
 
   public BodyRectangle bodyRectPrefab;
 
@@ -25,6 +28,8 @@ public class BodyRectangleManager : MonoBehaviour
 
   private void Start()
   {
+    OxygenPerArea.Value = InitialOxygenPerArea.Value;
+
     // Create initial rectangles for body
     foreach (var rectangle in FindObjectsOfType<BodyRectangle>())
     {
@@ -105,82 +110,53 @@ public class BodyRectangleManager : MonoBehaviour
   {
     // O2 Info for split rectangle
     var O2 = r.GetComponent<OxigenationMeter>();
-    var O2lvl = O2.oxygenLevel;
-    var O2MaxLvl = O2.maxOxygenLevel;
+    var O2Ratio = O2.OxygenRatio;
+
+    BodyRectangle Ob1 = null;
+    BodyRectangle Ob2 = null;
 
     switch (splitType)
     {
       case BodySplitType.Vertical:
         Vector2 newPos = new Vector2((r.position.x - r.HorizontalSize / 2 + pos.x) / 2, r.position.y);
-        BodyRectangle Ob1 = Instantiate(this.bodyRectPrefab, newPos, Quaternion.identity, r.transform.parent);
+        Ob1 = Instantiate(this.bodyRectPrefab, newPos, Quaternion.identity, r.transform.parent);
         Ob1.Initialize(Mathf.Abs(pos.x - (r.position.x - r.HorizontalSize / 2)), r.VerticalSize);
         Ob1.transform.position = newPos;
 
-        float proportionRatio = Mathf.Abs(pos.x - (r.position.x - r.HorizontalSize / 2)) / r.HorizontalSize;
-        var newO2 = Ob1.GetComponent<OxigenationMeter>();
-        newO2.SetOxygenData(splittingMultiplier * proportionRatio * O2lvl, splittingMultiplier * proportionRatio * O2MaxLvl);
-        StartCoroutine(FadeIn(Ob1));
-        rectangles.Add(Ob1);
-
         newPos = new Vector2((r.position.x + r.HorizontalSize / 2 + pos.x) / 2, r.position.y);
-        Ob1 = Instantiate(this.bodyRectPrefab, newPos, Quaternion.identity, r.transform.parent);
-        Ob1.Initialize(Mathf.Abs(pos.x - (r.position.x + r.HorizontalSize / 2)), r.VerticalSize);
-        Ob1.transform.position = newPos;
-
-        proportionRatio = 1 - proportionRatio;
-        newO2 = Ob1.GetComponent<OxigenationMeter>();
-        newO2.SetOxygenData(splittingMultiplier * proportionRatio * O2lvl, splittingMultiplier * proportionRatio * O2MaxLvl);
-        StartCoroutine(FadeIn(Ob1));
-        rectangles.Add(Ob1);
+        Ob2 = Instantiate(this.bodyRectPrefab, newPos, Quaternion.identity, r.transform.parent);
+        Ob2.Initialize(Mathf.Abs(pos.x - (r.position.x + r.HorizontalSize / 2)), r.VerticalSize);
+        Ob2.transform.position = newPos;
         break;
       case BodySplitType.Horizontal:
         Vector2 newPosV = new Vector2(r.position.x, (r.position.y - r.VerticalSize / 2 + pos.y) / 2);
-        BodyRectangle Ob1V = Instantiate(this.bodyRectPrefab, newPosV, Quaternion.identity, r.transform.parent);
-        Ob1V.Initialize(r.HorizontalSize, Mathf.Abs(pos.y - (r.position.y - r.VerticalSize / 2)));
-        Ob1V.transform.position = newPosV;
-
-        float proportionRatioV = Mathf.Abs(pos.y - (r.position.y - r.VerticalSize / 2)) / r.VerticalSize;
-        var newO2V = Ob1V.GetComponent<OxigenationMeter>();
-        newO2V.SetOxygenData(splittingMultiplier * proportionRatioV * O2lvl, splittingMultiplier * proportionRatioV * O2MaxLvl);
-        StartCoroutine(FadeIn(Ob1V));
-        rectangles.Add(Ob1V);
+        Ob1 = Instantiate(this.bodyRectPrefab, newPosV, Quaternion.identity, r.transform.parent);
+        Ob1.Initialize(r.HorizontalSize, Mathf.Abs(pos.y - (r.position.y - r.VerticalSize / 2)));
+        Ob1.transform.position = newPosV;
 
         newPosV = new Vector2(r.position.x, (r.position.y + r.VerticalSize / 2 + pos.y) / 2);
-        Ob1V = Instantiate(this.bodyRectPrefab, newPosV, Quaternion.identity, r.transform.parent);
-        Ob1V.Initialize(r.HorizontalSize, Mathf.Abs(pos.y - (r.position.y + r.VerticalSize / 2)));
-        Ob1V.transform.position = newPosV;
-
-        proportionRatioV = 1 - proportionRatioV;
-        newO2V = Ob1V.GetComponent<OxigenationMeter>();
-        newO2V.SetOxygenData(splittingMultiplier * proportionRatioV * O2lvl, splittingMultiplier * proportionRatioV * O2MaxLvl);
-        StartCoroutine(FadeIn(Ob1V));
-        rectangles.Add(Ob1V);
+        Ob2 = Instantiate(this.bodyRectPrefab, newPosV, Quaternion.identity, r.transform.parent);
+        Ob2.Initialize(r.HorizontalSize, Mathf.Abs(pos.y - (r.position.y + r.VerticalSize / 2)));
+        Ob2.transform.position = newPosV;
         break;
-      case BodySplitType.Cross:
-        Vector2 newPosC = new Vector2((r.position.x - r.HorizontalSize / 2 + pos.x) / 2, (r.position.y - r.VerticalSize / 2 + pos.y) / 2);
-        BodyRectangle Ob1C = Instantiate(this.bodyRectPrefab, newPosC, Quaternion.identity, r.transform.parent);
-        Ob1C.Initialize(Mathf.Abs(pos.x - (r.position.x - r.HorizontalSize / 2)), Mathf.Abs(pos.y - (r.position.y - r.VerticalSize / 2)));
-        Ob1C.transform.position = newPosC;
-        rectangles.Add(Ob1C);
+    }
 
-        newPosC = new Vector2((r.position.x + r.HorizontalSize / 2 + pos.x) / 2, (r.position.y - r.VerticalSize / 2 + pos.y) / 2);
-        Ob1C = Instantiate(this.bodyRectPrefab, newPosC, Quaternion.identity, r.transform.parent);
-        Ob1C.Initialize(Mathf.Abs(pos.x - (r.position.x + r.HorizontalSize / 2)), Mathf.Abs(pos.y - (r.position.y - r.VerticalSize / 2)));
-        Ob1C.transform.position = newPosC;
-        rectangles.Add(Ob1C);
+    OxygenPerArea.Value += OxygenPerAreaIncrementerSplit.Value;
 
-        newPosC = new Vector2((r.position.x - r.HorizontalSize / 2 + pos.x) / 2, (r.position.y + r.VerticalSize / 2 + pos.y) / 2);
-        Ob1C = Instantiate(this.bodyRectPrefab, newPosC, Quaternion.identity, r.transform.parent);
-        Ob1C.Initialize(Mathf.Abs(pos.x - (r.position.x - r.HorizontalSize / 2)), Mathf.Abs(pos.y - (r.position.y + r.VerticalSize / 2)));
-        Ob1C.transform.position = newPosC;
-        rectangles.Add(Ob1C);
+    {
+      var newO2 = Ob1.GetComponent<OxigenationMeter>();
+      var maxOxygen = Ob1.Area * OxygenPerArea.Value;
+      newO2.SetOxygenData(O2Ratio, maxOxygen);
+      StartCoroutine(FadeIn(Ob1));
+      rectangles.Add(Ob1);
+    }
 
-        newPosC = new Vector2((r.position.x + r.HorizontalSize / 2 + pos.x) / 2, (r.position.y + r.VerticalSize / 2 + pos.y) / 2);
-        Ob1C = Instantiate(this.bodyRectPrefab, newPosC, Quaternion.identity, r.transform.parent);
-        Ob1C.Initialize(Mathf.Abs(pos.x - (r.position.x + r.HorizontalSize / 2)), Mathf.Abs(pos.y - (r.position.y + r.VerticalSize / 2)));
-        Ob1C.transform.position = newPosC;
-        rectangles.Add(Ob1C);
-        break;
+    {
+      var newO2 = Ob2.GetComponent<OxigenationMeter>();
+      var maxOxygen = Ob2.Area * OxygenPerArea.Value;
+      newO2.SetOxygenData(O2Ratio, maxOxygen);
+      StartCoroutine(FadeIn(Ob2));
+      rectangles.Add(Ob2);
     }
 
     // delete rectangle

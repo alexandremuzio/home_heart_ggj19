@@ -2,45 +2,78 @@ using UnityEngine;
 
 public class OxigenationMeter : MonoBehaviour
 {
-
   public Gradient gradient;
 
-  public float oxygenLevel;
+  [SerializeField]
+  private float oxygenLevel;
 
-  public float maxOxygenLevel;
+  public FloatValue oxygenMultiplier;
 
-  public float oxygenDecreaseSpeed;
-
-  public bool IsAlive { get; private set; }= true;
-
-  public void SetOxygenData(float O2Level, float maxO2Level, float O2DecreaseSpeed = -1f)
+  public float OxygenLevel
   {
-    oxygenLevel = O2Level;
-    maxOxygenLevel = maxO2Level;
-
-    if (O2DecreaseSpeed != -1f)
+    get
     {
-      oxygenDecreaseSpeed = O2DecreaseSpeed;
+      return oxygenLevel;
     }
+    set
+    {
+      oxygenLevel = Mathf.Clamp(value, -0.01f, MaxOxygenLevel);
+      oxygenRatio = oxygenLevel / MaxOxygenLevel;
+    }
+  }
+
+
+  public float OxygenRatio
+  {
+    get
+    {
+      return oxygenRatio;
+    }
+
+    set
+    {
+      oxygenRatio = value;
+      oxygenLevel = value * MaxOxygenLevel;
+    }
+  }
+
+  [SerializeField]
+  private float oxygenRatio;
+
+  public float view;
+  public float MaxOxygenLevel => InternalMaxOxygenLevel * oxygenMultiplier.Value;
+
+  [SerializeField]
+  private float InternalMaxOxygenLevel;
+
+  float oxygenDecreaseSpeed => OxygenDecreaseSpeed?.Value ?? 0.0f;
+  public FloatValue OxygenDecreaseSpeed;
+
+  public bool IsAlive { get; private set; } = true;
+
+  public void SetOxygenData(float O2LevelRatio, float maxO2Level)
+  {
+    InternalMaxOxygenLevel = maxO2Level;
+    OxygenRatio = O2LevelRatio;
   }
 
   public Color GetColor()
   {
-    return this.gradient.Evaluate(oxygenLevel / maxOxygenLevel);
+    return this.gradient.Evaluate(OxygenRatio);
   }
   public float Take(float amount)
   {
-    var expectedOxygen = oxygenLevel - amount;
-    var removed = Mathf.Min(amount, oxygenLevel);
-    oxygenLevel = Mathf.Max(expectedOxygen, 0);
+    var expectedOxygen = OxygenLevel - amount;
+    var removed = Mathf.Min(amount, OxygenLevel);
+    OxygenLevel = Mathf.Max(expectedOxygen, 0);
     return removed;
   }
 
   public float Give(float amount)
   {
-    var expectedOxygen = oxygenLevel + amount;
-    oxygenLevel = Mathf.Min(expectedOxygen, maxOxygenLevel);
-    var overflow = Mathf.Max(0, expectedOxygen - oxygenLevel);
+    var expectedOxygen = OxygenLevel + amount;
+    OxygenLevel = Mathf.Min(expectedOxygen, MaxOxygenLevel);
+    var overflow = Mathf.Max(0, expectedOxygen - OxygenLevel);
     return overflow;
   }
 
@@ -51,12 +84,14 @@ public class OxigenationMeter : MonoBehaviour
 
   private void Update()
   {
-    this.oxygenLevel -= Time.deltaTime * this.oxygenDecreaseSpeed;
+    this.OxygenLevel -= Time.deltaTime * this.oxygenDecreaseSpeed;
 
-    if (this.oxygenLevel < 0f)
+    if (this.OxygenLevel < 0f)
     {
       this.IsAlive = false;
       //print("Body Rectangle is dead!");
     }
+
+    view = MaxOxygenLevel;
   }
 }

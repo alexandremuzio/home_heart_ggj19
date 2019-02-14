@@ -57,8 +57,7 @@ public class BloodCellMovement : MonoBehaviour
     if (mode == CellMoveMode.Play)
     {
       var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-      transform.position += (Vector3)input * Time.deltaTime * data.Speed
-      ;
+      transform.position += (Vector3)input * Time.deltaTime * data.Speed;
     }
   }
 

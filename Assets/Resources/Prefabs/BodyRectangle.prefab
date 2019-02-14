@@ -276,9 +276,11 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 8
     m_NumAlphaKeys: 2
-  oxygenLevel: 48.959995
-  maxOxygenLevel: 50
-  oxygenDecreaseSpeed: 2
+  oxygenLevel: 0
+  oxygenMultiplier: {fileID: 11400000, guid: ad04ba2dc29be3343a8cd921079e2f5a, type: 2}
+  oxygenRatio: 0
+  OxygenDecreaseSpeed: {fileID: 11400000, guid: 681fcd38ec48d3b4dade307e7c32e80c,
+    type: 2}
 --- !u!61 &4000393320358606415
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: e041c730e2f3dab40bba717af67d82f5
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Abraham
+  fontNames:
+  - Abraham
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4bc940a1e34f97c4ba49030a56092db8, type: 3}
+  - {fileID: 12800000, guid: a3a7dfb492836af4092b101962203fa8, type: 3}
+  - {fileID: 12800000, guid: b8a111099afed674aa3ba5e636ffdfed, type: 3}
+  - {fileID: 12800000, guid: 9c89c71c821b97b48a636eeb85866af0, type: 3}
+  - {fileID: 12800000, guid: aa00470fb4f87d04ba67f82d67adf0c0, type: 3}
+  - {fileID: 12800000, guid: bf18812f0ff9db248b6e93fa5eb440e5, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
