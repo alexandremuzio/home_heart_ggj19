@@ -16,10 +16,11 @@ Sound
  
 Programming
 -----------
-- [ ] Check if black cell is not giving oxygen
-- [ ] Join adjacent rectangles (prob. using shaders)
+- [X] Check if black cell is not giving oxygen
+- [X] Join adjacent rectangles (prob. using shaders)
 - [ ] Cooldown when cell reaches the heart
 - [ ] Create scriptable objects to facilitate changing game constants
+- [ ] Add CI to deploy from Github
  
 Gameplay
 --------
