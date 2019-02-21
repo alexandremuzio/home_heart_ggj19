@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class BloodCellHome : MonoBehaviour
 
   void SpawnNewCell()
   {
-    Instantiate(prefab, this.transform);
+    StartCoroutine(CellFadeIn());
     CellCount.Value++;
   }
 
@@ -36,7 +37,21 @@ public class BloodCellHome : MonoBehaviour
     if (bloodCell && bloodCell.leftHomeBase && bloodCell.Mode == CellMoveMode.Play)
     {
       bloodCell.OnCellBack();
+      collision.enabled = false;
       SpawnNewCell();
+      this.DoAfterTime(2f, () => collision.enabled = true);
     }
+  }
+
+  IEnumerator CellFadeIn()
+  {
+    var totalTime = 2f;
+    var renderer = GetComponent<SpriteRenderer>();
+
+    return CoroutineHelpers.InterpolateByTime(totalTime, (x =>
+    {
+      var newScale = totalTime * Mathf.Min(0.5f, x);
+      transform.localScale = new Vector3(newScale, newScale);
+    }), () =>  Instantiate(prefab, this.transform));
   }
 }
