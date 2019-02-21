@@ -86,7 +86,7 @@ public class OxigenationMeter : MonoBehaviour
   {
     this.OxygenLevel -= Time.deltaTime * this.oxygenDecreaseSpeed;
 
-    if (this.OxygenLevel < 0f)
+    if (this.OxygenLevel <= 0f)
     {
       this.IsAlive = false;
       //print("Body Rectangle is dead!");

@@ -7,7 +7,10 @@ using UnityEngine;
 public class BloodCellOxigenation : MonoBehaviour
 {
   public BloodCellData data;
-  public SpriteRenderer spriterenderer;
+
+  private SpriteRenderer spriterenderer;
+
+  public BoolValue CellDiesWhenOutOfOxygen;
 
   private OxigenationMeter oxigenationMeter;
 
@@ -20,6 +23,24 @@ public class BloodCellOxigenation : MonoBehaviour
   private void Update()
   {
     spriterenderer.color = oxigenationMeter.GetColor();
+    if (CellDiesWhenOutOfOxygen.Value)
+    {
+      print(oxigenationMeter.OxygenRatio + " " + oxigenationMeter.IsAlive);
+      if (!oxigenationMeter.IsAlive)
+      {
+        print("dead");
+        Die();
+      }
+    }
+  }
+
+  private void Die()
+  {
+    if (GetComponent<BloodCellMovement>().Mode == CellMoveMode.Play)
+    {
+      GameEvents.ActiveCellDied();
+    }
+    Destroy(this.gameObject);
   }
 
   private void OnTriggerStay2D(Collider2D other)

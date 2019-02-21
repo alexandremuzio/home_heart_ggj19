@@ -22,6 +22,7 @@ public class BloodCellHome : MonoBehaviour
   {
     CellCount.Value = 0;
     SpawnNewCell();
+    GameEvents.ActiveCellDied += SpawnNewCell;
   }
 
   // Update is called once per frame

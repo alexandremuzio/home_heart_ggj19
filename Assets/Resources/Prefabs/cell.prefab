@@ -4910,9 +4910,9 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  oxygenLevel: 0
+  oxygenLevel: 100
   oxygenMultiplier: {fileID: 11400000, guid: ca7bdcd8ac4f2de468e5c1e3c2aa8c76, type: 2}
-  oxygenRatio: 0
+  oxygenRatio: 1
   view: 0
   InternalMaxOxygenLevel: 50
   OxygenDecreaseSpeed: {fileID: 0}
@@ -4929,7 +4929,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: dadd0250914c1f04ea912087e09b87f5, type: 2}
-  spriterenderer: {fileID: 0}
+  CellDiesWhenOutOfOxygen: {fileID: 11400000, guid: e393ea72c4ee6114e9a18987ae9d8f84,
+    type: 2}
 --- !u!114 &6592083909638952856
 MonoBehaviour:
   m_ObjectHideFlags: 0
