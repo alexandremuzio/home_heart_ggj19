@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe60bc05833e8df4f8424fcef5db4f63, type: 3}
-  m_Name: BlinkIntervalMax
+  m_Name: CurrentCellOxygen
   m_EditorClassIdentifier: 
-  Value: 5
+  Value: 1

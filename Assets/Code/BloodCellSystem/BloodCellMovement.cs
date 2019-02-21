@@ -3,20 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CellMoveMode
-{
-  Play,
-  Replay,
-
-}
-
 [RequireComponent(typeof(BloodCellRecorder))]
 public class BloodCellMovement : MonoBehaviour
 {
   private float PositionRecordInterval;
   public BloodCellData data;
   private BloodCellRecorder recorder;
-  public CellMoveMode mode { get; private set; }
+  public CellMoveMode Mode { get; private set; }
 
   private IEnumerator ReplayRecording()
   {
@@ -46,7 +39,7 @@ public class BloodCellMovement : MonoBehaviour
 
   public void OnCellBack()
   {
-    mode = CellMoveMode.Replay;
+    Mode = CellMoveMode.Replay;
     StartCoroutine(ReplayRecording());
     recorder.isRecording = false;
   }
@@ -54,7 +47,7 @@ public class BloodCellMovement : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (mode == CellMoveMode.Play)
+    if (Mode == CellMoveMode.Play)
     {
       var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
       transform.position += (Vector3)input * Time.deltaTime * data.Speed;
@@ -65,13 +58,13 @@ public class BloodCellMovement : MonoBehaviour
   {
     while (true)
     {
-      while (mode == CellMoveMode.Play)
+      while (Mode == CellMoveMode.Play)
         yield return null;
 
       print("stopping animation");
       GetComponent<Animator>().SetTrigger("toggle");
 
-      while (mode == CellMoveMode.Replay)
+      while (Mode == CellMoveMode.Replay)
         yield return null;
 
       GetComponent<Animator>().SetTrigger("toggle");

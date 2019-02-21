@@ -63,6 +63,7 @@ public class BodyRectangleManager : MonoBehaviour
 
   private void SplitRandomRectangle()
   {
+    if(rectangles.Count == 0) return;
     BodyRectangle r = rectangles
                 .OrderBy(_ => Guid.NewGuid())
                 .OrderByDescending((x1) => Mathf.Min(x1.VerticalSize, x1.HorizontalSize))

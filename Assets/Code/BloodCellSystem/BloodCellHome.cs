@@ -32,7 +32,7 @@ public class BloodCellHome : MonoBehaviour
   void OnTriggerEnter2D(Collider2D collision)
   {
     var bloodCell = collision.gameObject.GetComponent<BloodCellMovement>();
-    if (bloodCell && bloodCell.leftHomeBase && bloodCell.mode == CellMoveMode.Play)
+    if (bloodCell && bloodCell.leftHomeBase && bloodCell.Mode == CellMoveMode.Play)
     {
       bloodCell.OnCellBack();
       SpawnNewCell();
