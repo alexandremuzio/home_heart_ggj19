@@ -185,6 +185,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7638400394756992560, guid: 91bea124a039f124d98ca87219b7e510,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2013107709998834156, guid: 91bea124a039f124d98ca87219b7e510,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263534177462784279, guid: 91bea124a039f124d98ca87219b7e510,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1168720527217843194, guid: 91bea124a039f124d98ca87219b7e510,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422691922012297067, guid: 91bea124a039f124d98ca87219b7e510,
+        type: 3}
+      propertyPath: MinBlinkDuration
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b4583e3c2a09a84da92a294c0ecae5a,
+        type: 2}
+    - target: {fileID: 6422691922012297067, guid: 91bea124a039f124d98ca87219b7e510,
+        type: 3}
+      propertyPath: MaxBlinkDuration
+      value: 
+      objectReference: {fileID: 11400000, guid: 8436917cc15508c4a8e4ae315e7ab616,
+        type: 2}
+    - target: {fileID: 6422691922012297067, guid: 91bea124a039f124d98ca87219b7e510,
+        type: 3}
+      propertyPath: MinBlinkInterval
+      value: 
+      objectReference: {fileID: 11400000, guid: bd8538a4a1e53b144bb214278a7bc3fa,
+        type: 2}
+    - target: {fileID: 6422691922012297067, guid: 91bea124a039f124d98ca87219b7e510,
+        type: 3}
+      propertyPath: MaxBlinkInterval
+      value: 
+      objectReference: {fileID: 11400000, guid: 14834cf1f3b06e14d9117287d7084884,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91bea124a039f124d98ca87219b7e510, type: 3}
 --- !u!1 &428811355 stripped
