@@ -127,10 +127,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7656626306929005139}
-  - {fileID: 1558772100241914239}
-  - {fileID: 6987317973883297062}
-  - {fileID: 1946364837750791847}
+  - {fileID: 8548568979126557902}
+  - {fileID: 667251591649982434}
+  - {fileID: 8940951015191811003}
+  - {fileID: 567932661177995322}
   m_Father: {fileID: 4462747119266164529}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
 --- !u!1001 &567932661177995409
@@ -252,7 +252,7 @@ PrefabInstance:
     - target: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 88.166664
+      value: 66.125
       objectReference: {fileID: 0}
     - target: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
         type: 3}
@@ -307,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb58315778d718c4692e2c06354c75fd, type: 3}
---- !u!224 &1946364837750791847 stripped
+--- !u!224 &567932661177995322 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
     type: 3}
@@ -398,7 +398,7 @@ PrefabInstance:
     - target: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 88.166664
+      value: 66.125
       objectReference: {fileID: 0}
     - target: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
         type: 3}
@@ -449,11 +449,11 @@ PrefabInstance:
     - target: {fileID: 4028052073525848755, guid: eb58315778d718c4692e2c06354c75fd,
         type: 3}
       propertyPath: m_Text
-      value: 96.4%
+      value: 68.8%
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb58315778d718c4692e2c06354c75fd, type: 3}
---- !u!224 &1558772100241914239 stripped
+--- !u!224 &667251591649982434 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
     type: 3}
@@ -544,7 +544,7 @@ PrefabInstance:
     - target: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 88.166664
+      value: 66.125
       objectReference: {fileID: 0}
     - target: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
         type: 3}
@@ -595,11 +595,11 @@ PrefabInstance:
     - target: {fileID: 4028052073525848755, guid: eb58315778d718c4692e2c06354c75fd,
         type: 3}
       propertyPath: m_Text
-      value: 5.6 s
+      value: 35.0 s
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb58315778d718c4692e2c06354c75fd, type: 3}
---- !u!224 &7656626306929005139 stripped
+--- !u!224 &8548568979126557902 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
     type: 3}
@@ -652,6 +652,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 66.125
+      objectReference: {fileID: 0}
     - target: {fileID: 493553033905366673, guid: eb58315778d718c4692e2c06354c75fd,
         type: 3}
       propertyPath: m_Text
@@ -675,7 +680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb58315778d718c4692e2c06354c75fd, type: 3}
---- !u!224 &6987317973883297062 stripped
+--- !u!224 &8940951015191811003 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2081598982700207670, guid: eb58315778d718c4692e2c06354c75fd,
     type: 3}
