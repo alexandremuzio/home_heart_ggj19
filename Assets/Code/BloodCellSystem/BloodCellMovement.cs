@@ -50,6 +50,13 @@ public class BloodCellMovement : MonoBehaviour
     if (Mode == CellMoveMode.Play)
     {
       var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+      input = input.normalized;
+      if (Input.GetMouseButton(0))
+      {
+        var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0;
+        input = (-transform.position + mouseWorldPos).normalized;
+      }
       transform.position += (Vector3)input * Time.deltaTime * data.Speed;
     }
   }
